@@ -1,0 +1,28 @@
+{
+  "name": "Pet-ToDoList",
+  "version": "1.1.0",
+  "description": "",
+  "main": "index.js",
+  "homepage": "https://GodDet1.github.io/Pet-ToDoList",
+  "scripts": {
+    "dev": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /Pet-ToDoList/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GodDet1/Pet-ToDoList.git"
+  },
+  "keywords": [],
+  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GodDet1/Pet-ToDoList/issues"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-handlebars-precompile": "^1.0.2",
+    "parcel-plugin-nuke-dist": "^1.0.1",
+    "posthtml-include": "^1.6.2",
+    "sass": "^1.32.8"
+  }
+}
