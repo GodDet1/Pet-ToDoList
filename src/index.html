@@ -5,12 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./css/normalize.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <form>
-      <input type="text" />
-      <button type="submit"></button>
+    <form class="todo__form">
+      <input type="text" class="todo__input" name="todo" />
+      <button type="submit" class="todo__btn">Create ToDo</button>
     </form>
+    <ul class="todo__list"></ul>
     <script src="./index.js"></script>
   </body>
 </html>

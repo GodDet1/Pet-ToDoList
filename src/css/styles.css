@@ -1,0 +1,110 @@
+li {
+  list-style: none;
+}
+ul {
+  padding: 0px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+
+  background: #ce5937;
+
+  background: linear-gradient(135deg, #ce5937 0%, #1c6ea4 41%, #6a5acd 72%, #c59237 100%);
+}
+
+.todo__form {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 56%;
+
+  box-shadow: 4px 0px 0px 0px #dcd0c08c, 0px 4px 0px 0px #b1938b71, -4px 0px 0px 0px #4e4e5677,
+    0px 0px 0px 4px #da635d88, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+.todo__input {
+  padding: 5px 40px;
+  width: 80%;
+  height: 33px;
+
+  border: none;
+  background: #ffffff5e;
+}
+
+.todo__btn {
+  display: block;
+  height: 33px;
+  width: 20%;
+  padding: 5px 15px;
+
+  border: none;
+
+  background: #f1b1b19f;
+  color: white;
+}
+
+.todo__list {
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  width: 56%;
+}
+
+.todo__item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  background: #ffffff5e;
+
+  font-size: large;
+
+  box-shadow: 4px 0px 0px 0px #dcd0c08c, 0px 4px 0px 0px #b1938b71, -4px 0px 0px 0px #4e4e5677,
+    0px 0px 0px 4px #da635d88, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+}
+
+.todo__item:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.todo__check {
+  margin: 5px 20px 5px 10px;
+}
+
+.todo__delete {
+  margin-left: auto;
+  padding: 5px 15px;
+
+  width: 20%;
+  border: none;
+
+  background: #f1b1b18c;
+  color: white;
+}
+
+.todo__btn:focus,
+.todo__btn:focus,
+.todo__delete:active,
+.todo__delete:active {
+  background-color: #7863b7;
+}
