@@ -103,8 +103,8 @@ body {
 }
 
 .todo__btn:focus,
-.todo__btn:focus,
-.todo__delete:active,
-.todo__delete:active {
+.todo__btn:hover,
+.todo__delete:focus,
+.todo__delete:hover {
   background-color: #7863b7;
 }
