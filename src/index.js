@@ -1,6 +1,7 @@
 import * as api from './js/api.js';
 import template from './js/template.js';
 import { Notify } from 'notiflix';
+import 'animate.css';
 
 const refs = {
   form: document.querySelector('.todo__form'),
@@ -25,12 +26,16 @@ refs.list.addEventListener('click', onClick);
 async function onSubmit(evt) {
   event.preventDefault();
 
+  const element = evt.currentTarget;
+
   const {
     elements: { todo },
-  } = evt.currentTarget;
+  } = element;
 
   const newToDO = toDoListDataAdd(todo.value.trim());
-  evt.currentTarget.reset();
+  element.reset();
+
+  animateAdd('headShake', element);
 
   if (newToDO.value != '') {
     try {
@@ -39,6 +44,8 @@ async function onSubmit(evt) {
       renderListFormApi();
     } catch {
       Notify.failure('Server does not respond ');
+    } finally {
+      setInterval(animateRemove, 3000, 'headShake', element);
     }
   } else {
     Notify.failure('Write what you need');
@@ -69,7 +76,7 @@ async function onClick(evt) {
     } catch {
       Notify.failure('Server does not respond ');
     }
-    whenCheked(evt.target, dataForChange.checked);
+    colorWhenCheked(evt.target, dataForChange.checked);
   }
 }
 
@@ -78,10 +85,6 @@ function toDoListDataAdd(toDoValue) {
     value: toDoValue,
     checked: false,
   };
-}
-
-function deleteItem(idForDelete) {
-  const indexForDelete = toDoListData.findIndex(({ id }) => id === idForDelete);
 }
 
 async function renderListFormApi() {
@@ -102,13 +105,24 @@ async function renderListFormApi() {
 function checker(boolean, id) {
   const elem = document.querySelector(`input[data-id="${id}"]`);
   elem.checked = boolean;
-  whenCheked(elem, boolean);
+  colorWhenCheked(elem, boolean);
+  return elem;
 }
 
-function whenCheked(elem, boolean) {
+function colorWhenCheked(elem, boolean) {
   if (boolean) {
     elem.parentNode.style.backgroundColor = 'rgba(144, 238, 144, 0.5)';
   } else {
     elem.parentNode.style.backgroundColor = 'rgba(255, 165, 186,0.5)';
   }
+}
+
+function animateAdd(animate, elem) {
+  elem.classList.add('animate__animated');
+  elem.classList.add(`animate__${animate}`);
+}
+
+function animateRemove(animate, elem) {
+  elem.classList.remove('animate__animated');
+  elem.classList.remove(`animate__${animate}`);
 }
