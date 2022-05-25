@@ -7,6 +7,7 @@ const refs = {
   form: document.querySelector('.todo__form'),
   list: document.querySelector('.todo__list'),
 };
+const TIMEOUT = 1000;
 
 Notify.init({
   width: '280px',
@@ -33,15 +34,19 @@ async function onSubmit(evt) {
   } = element;
 
   const newToDO = toDoListDataAdd(todo.value.trim());
-  element.reset();
-
   animateAdd('headShake', element);
+  element.reset();
 
   if (newToDO.value != '') {
     try {
       await api.createItem(newToDO);
+
       Notify.success('New task was been created');
-      renderListFormApi();
+
+      const response = await api.getList();
+      const { value, id, checked } = response[response.length - 1];
+
+      createListItem(value, id, checked);
     } catch {
       Notify.failure('Server does not respond ');
     } finally {
@@ -53,17 +58,23 @@ async function onSubmit(evt) {
 }
 
 async function onClick(evt) {
+  // ondelete
+
   if (evt.target.type === 'button') {
     const idForDelete = Number(evt.target.dataset.id);
 
     try {
       await api.deleteItem(idForDelete);
-      evt.target.parentNode.remove();
+      animateAdd('backOutRight', evt.target.parentNode);
+      setTimeout(() => evt.target.parentNode.remove(), TIMEOUT);
+
       Notify.warning('It has been removed, but hopefully it is done!');
     } catch {
       Notify.failure('Server does not respond ');
     }
   }
+
+  // onCheckbox
 
   if (evt.target.type === 'checkbox') {
     const dataForChange = {
@@ -90,21 +101,36 @@ function toDoListDataAdd(toDoValue) {
 async function renderListFormApi() {
   try {
     const list = await api.getList();
-    const templateList = template(list);
 
-    refs.list.innerHTML = templateList;
+    for (let i = 0; i < list.length; i++) {
+      setTimeout(() => {
+        const { value, id, checked } = list[i];
 
-    list.forEach(({ id, checked }) => {
-      checker(checked, id);
-    });
+        createListItem(value, id, checked);
+      }, i * 90);
+    }
   } catch {
     Notify.failure('Server does not respond ');
   }
 }
 
+function createListItem(value, id, checked) {
+  const liCreate = document.createElement('li');
+
+  liCreate.classList.add('todo__item');
+  liCreate.insertAdjacentHTML('beforeend', template(value, id));
+  refs.list.append(liCreate);
+
+  checker(checked, id);
+  animateAdd('backInLeft', liCreate);
+
+  setTimeout(animateRemove, TIMEOUT, 'backInLeft', liCreate);
+}
+
 function checker(boolean, id) {
   const elem = document.querySelector(`input[data-id="${id}"]`);
   elem.checked = boolean;
+
   colorWhenCheked(elem, boolean);
   return elem;
 }
